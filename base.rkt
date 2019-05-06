@@ -1,6 +1,8 @@
 #lang racket
 (require racket/class)
 
+(provide (struct-out rule))
+
 ; premise and conclusion are both lists
 (struct rule (premise conclusion)
   #:transparent)
