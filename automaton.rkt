@@ -73,3 +73,11 @@
       )
     )
   )
+
+(define pushdown-automaton%
+  (class automaton%
+    (super-new)
+    (init-field stack-alphabet)
+    (field [stack (new stack%)])
+    )
+  )
