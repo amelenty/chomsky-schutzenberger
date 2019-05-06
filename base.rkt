@@ -2,7 +2,8 @@
 (require racket/class)
 
 ; premise and conclusion are both lists
-(struct rule (premise conclusion))
+(struct rule (premise conclusion)
+  #:transparent)
 
 ; empty symbol
 (define epsilon "")
