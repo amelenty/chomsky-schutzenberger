@@ -2,13 +2,14 @@
 (require racket/class)
 
 (provide (struct-out rule))
+(provide epsilon)
 
 ; premise and conclusion are both lists
 (struct rule (premise conclusion)
   #:transparent)
 
 ; empty symbol
-(define epsilon "")
+(define epsilon "ε")
 
 (define cf-grammar%
   (class object%
@@ -40,7 +41,7 @@
             ; S -> epsilon
       (cons (rule start (list epsilon))
             ; S -> a_i S b_i S for every pair of brackets
-            (map (lambda (bracket-pair)
+            (map (λ (bracket-pair)
                    (rule start (list (first bracket-pair) start (last bracket-pair) start)))
                  terminal-pairs)
             )

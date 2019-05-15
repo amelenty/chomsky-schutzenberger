@@ -77,9 +77,9 @@
           ; BFS, essentially
           (set! current-states
                 ; get all states the current state and input yield
-                (flatten (map (lambda (r) (transition r))
+                (flatten (map (λ (r) (transition r))
                               ; all rules that have current symbol as input
-                              (filter (lambda (r) (equal? x (automaton-premise-input (rule-premise r)))) rules)
+                              (filter (λ (r) (equal? x (automaton-premise-input (rule-premise r)))) rules)
                               )
                          )
                 )
@@ -90,7 +90,7 @@
     ; string as a list of symbols
     (define/public (process-string s)
       ; process all symbols
-      (map (lambda (x) (process-symbol x)) s)
+      (map (λ (x) (process-symbol x)) s)
       (is-accepting)
       )
     )
@@ -119,20 +119,20 @@
     ; PDA is accepting iff it's in an accepting state and its stack is empty
     (define/override (is-accepting)
       (not (empty?
-       (filter (lambda (st) (send (pushdown-automaton-state-stack st) is-empty))
-               (filter (lambda (st) (equal? final (pushdown-automaton-state-state st))) current-states))
+       (filter (λ (st) (send (pushdown-automaton-state-stack st) is-empty))
+               (filter (λ (st) (equal? final (pushdown-automaton-state-state st))) current-states))
        ))
       )
 
     (define/public (get-applicable-current-states premise)
-      (filter (lambda (st) (equal? (pushdown-automaton-premise-top premise) (send (pushdown-automaton-state-stack st) peek)))
-               (filter (lambda (st) (equal? (automaton-premise-state premise) (pushdown-automaton-state-state st))) current-states)
+      (filter (λ (st) (equal? (pushdown-automaton-premise-top premise) (send (pushdown-automaton-state-stack st) peek)))
+               (filter (λ (st) (equal? (automaton-premise-state premise) (pushdown-automaton-state-state st))) current-states)
        )
       )
 
     ; returns a conclusion reachable by rule r, if currently applicable, while adding to the stack
     (define/override (transition r)
-      (map (lambda (st) (
+      (map (λ (st) (
                          pushdown-automaton-state
                           (pushdown-automaton-conclusion-state (rule-conclusion r))
                           (new stack% [contents (cons (pushdown-automaton-conclusion-top (rule-conclusion r)) (cdr (get-field contents (pushdown-automaton-state-stack st))))]
@@ -146,9 +146,9 @@
     ;      ; BFS, essentially
     ;      (set! current-states
     ;            ; get all states the current state and input yield
-    ;            (flatten (map (lambda (r) (transition r))
+    ;            (flatten (map (λ (r) (transition r))
     ;                                  ; all rules that have current symbol as input
-    ;                                  (filter (lambda (r) (equal? x (automaton-premise-input (rule-premise r)))) rules))
+    ;                                  (filter (λ (r) (equal? x (automaton-premise-input (rule-premise r)))) rules))
     ;                          )
     ;                     )
     ;            )
